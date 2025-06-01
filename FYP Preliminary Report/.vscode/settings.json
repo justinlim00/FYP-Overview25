@@ -1,0 +1,7 @@
+{
+    "latex-workshop.intellisense.biblatexJSON.replace": {},
+    "latex-workshop.latex.autoBuild.run": "onSave",
+    "latex-workshop.view.pdf.viewer": "tab",
+    "latex-workshop.synctex.afterBuild.enabled": true,
+    "latex-workshop.view.pdf.ref.viewer": "auto"
+}

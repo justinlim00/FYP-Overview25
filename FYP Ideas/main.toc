@@ -1,0 +1,14 @@
+\contentsline {section}{\numberline {1}Bias Detection in Social Media News using NLP}{2}{section.1}%
+\contentsline {paragraph}{1. LIAR Dataset (Wang et al., 2017)}{3}{paragraph*.1}%
+\contentsline {paragraph}{2. Fake News Challenge (FNC-1)}{3}{paragraph*.2}%
+\contentsline {paragraph}{3. Related Research Literature}{3}{paragraph*.3}%
+\contentsline {section}{\numberline {2}Explainable Deep Learning for Breast Cancer Detection in Singaporean Women}{4}{section.2}%
+\contentsline {paragraph}{1. Google Health / DeepMind — AI for Mammogram Screening}{5}{paragraph*.4}%
+\contentsline {paragraph}{2. Zebra Medical Vision — Scalable AI Screening Solutions}{5}{paragraph*.5}%
+\contentsline {paragraph}{3. Shen et al. (2019) — Deep Learning on Mammography}{6}{paragraph*.6}%
+\contentsline {paragraph}{4. Salim et al. (2024) — \textit {Use of AI for Breast Cancer Screening in Clinical Practice}}{6}{paragraph*.7}%
+\contentsline {paragraph}{3. Related Research Literature}{6}{paragraph*.8}%
+\contentsline {section}{\numberline {3}Orchestrated AI System for Early Cognitive Decline Detection in Singaporean Seniors}{8}{section.3}%
+\contentsline {paragraph}{1. ADReSS Challenge (2020–2021)}{9}{paragraph*.9}%
+\contentsline {paragraph}{2. DementiaBank (Pitt Corpus)}{9}{paragraph*.10}%
+\contentsline {paragraph}{3. Related Research}{10}{paragraph*.11}%
