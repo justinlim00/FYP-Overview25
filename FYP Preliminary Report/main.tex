@@ -115,19 +115,19 @@ Taken together, these works justify the technical foundations of this project: s
 
 \subsection{Explainability in Medical AI}
 
-While deep learning (DL) models have achieved strong performance in medical imaging, their “black box” nature remains a major barrier to clinical adoption. Unlike traditional models with clearly defined features, CNNs often produce predictions without transparent reasoning. In high-stakes domains like cancer diagnosis, this lack of interpretability poses ethical, legal, and practical concerns—especially when errors may result in misdiagnosis or delayed treatment.
+While deep learning (DL) models have achieved strong performance in medical imaging, their “black box” nature remains a major barrier to clinical adoption. Unlike traditional models with clearly defined features, CNNs often produce predictions without transparent reasoning. In high-stakes domains like cancer diagnosis, this lack of interpretability poses ethical, legal, and practical concerns—especially when errors may result in misdiagnosis or delayed treatment~\cite{3}.
 
 This issue is particularly relevant to this project, which targets breast cancer screening in Singapore. Clinicians need to understand how and why a model makes a prediction in order to trust and act on it. As highlighted by Ching et al.~\cite{3}, explainability is not just a technical add-on but a prerequisite for the responsible use of AI in healthcare. Without it, medical professionals are less likely to adopt such tools, regardless of performance gains.
 
-To overcome this limitation, this project incorporates Gradient-weighted Class Activation Mapping (Grad-CAM) into its CNN architecture. Grad-CAM generates a heatmap that shows which regions of the input mammogram contributed most strongly to a model’s prediction. These visual explanations serve as interpretive cues for radiologists, helping them validate whether the model is focusing on clinically relevant structures like calcifications or asymmetries.
+To overcome this limitation, this project incorporates Gradient-weighted Class Activation Mapping (Grad-CAM) into its CNN architecture. Grad-CAM generates a heatmap that shows which regions of the input mammogram contributed most strongly to a model’s prediction. These visual explanations serve as interpretive cues for radiologists, helping them validate whether the model is focusing on clinically relevant structures like calcifications or asymmetries~\cite{5}.
 
-For instance, Selvaraju et al.~\cite{5} demonstrated how Grad-CAM could be used to highlight malignancy-related areas in medical images. Appendix Figure~\ref{fig:gradcam} shows a representative output where red activation zones correspond with tumor-like regions. Such interpretability directly supports this project’s goal of clinician-aligned AI: when a model’s attention visibly aligns with known diagnostic features, trust in its predictions increases. Conversely, if the heatmap focuses on irrelevant regions, it can signal model failure or the need for retraining—adding a valuable layer of quality control.
+For instance, Selvaraju et al.~\cite{5} demonstrated how Grad-CAM could be used to highlight malignancy-related areas in medical images. Appendix Figure~\ref{fig:gradcam} shows a representative output where red activation zones correspond with tumor-like regions. Such interpretability directly supports this project’s goal of clinician-aligned AI: when a model’s attention visibly aligns with known diagnostic features, trust in its predictions increases. Conversely, if the heatmap focuses on irrelevant regions, it can signal model failure or the need for retraining—adding a valuable layer of quality control~\cite{5}.
 
-This capability is especially important in the Singaporean healthcare context, where patients and providers come from diverse ethnic backgrounds, and diagnostic baselines may differ. Explainable models help bridge anatomical and cultural variability by providing a shared visual rationale for risk scores. They also reduce automation bias by keeping radiologists in the loop.
+This capability is especially important in the Singaporean healthcare context, where patients and providers come from diverse ethnic backgrounds, and diagnostic baselines may differ~\cite{6}. Explainable models help bridge anatomical and cultural variability by providing a shared visual rationale for risk scores. They also reduce automation bias by keeping radiologists in the loop~\cite{3}.
 
-Moreover, integrating Grad-CAM into the system architecture allows for routine auditing and retrospective case review. This aligns with the Ministry of Health’s emphasis on accountability and traceability in AI-driven diagnostics. Visual heatmaps can be logged, reviewed, and compared over time to refine both human and machine performance.
+Moreover, integrating Grad-CAM into the system architecture allows for routine auditing and retrospective case review. This aligns with the Ministry of Health’s emphasis on accountability and traceability in AI-driven diagnostics~\cite{6}. Visual heatmaps can be logged, reviewed, and compared over time to refine both human and machine performance~\cite{5}.
 
-In summary, explainability is not peripheral—it is central to the viability of AI in breast cancer screening. By embedding Grad-CAM into the model pipeline, this project ensures that predictions are not only accurate but also interpretable, auditable, and clinically actionable.
+In summary, explainability is not peripheral—it is central to the viability of AI in breast cancer screening. By embedding Grad-CAM into the model pipeline, this project ensures that predictions are not only accurate but also interpretable, auditable, and clinically actionable~\cite{5}.
 
 \subsection{Dataset Diversity and Generalization}
 
@@ -139,31 +139,31 @@ Yala et al.’s~\cite{1} hybrid model—which combines image and clinical featur
 
 This concern is further reinforced by Raghu et al.~\cite{2}, who investigated the value of transfer learning from ImageNet in medical imaging. Their findings, shown in Appendix Figure~\ref{fig:lit2table7}, indicate that pretrained CNNs did not significantly outperform models trained from scratch. In fact, most pretrained features were overridden during fine-tuning. This supports this project’s strategy to adopt a lightweight CNN architecture trained specifically on mammographic data, rather than relying on generalized features learned from non-medical domains.
 
-Finally, the problem of dataset scarcity must also be addressed. In regions like Singapore, access to annotated medical data is limited due to privacy regulations and small population sizes. Cheplygina et al.~\cite{4} highlight the utility of alternative learning paradigms such as semi-supervised learning (SSL), multi-instance learning (MIL), and weak supervision. These approaches reduce dependence on manual labeling and are more viable in data-constrained settings.
+Finally, the problem of dataset scarcity must also be addressed. In regions like Singapore, access to annotated medical data is limited due to privacy regulations and small population sizes. Cheplygina et al.~\cite{4} highlight the utility of alternative learning paradigms such as semi-supervised learning (SSL)~\cite{4}, multi-instance learning (MIL)~\cite{4}, and weak supervision~\cite{4}. SSL allows models to leverage large amounts of unlabeled data alongside limited labeled samples, while MIL enables training on image bags without requiring pixel-level labels. These approaches reduce dependence on manual labeling and are more viable in data-constrained settings.
 
-This project incorporates several of these ideas: synthetic augmentation is used to simulate dense tissue variability; focal loss is employed to prioritize underrepresented malignancy cases; and the architecture is designed to accommodate future integration of local data for fine-tuning. Together, these strategies ensure that the model is not only technically sound but also aligned with the demographic and infrastructural realities of Singapore.
+This project incorporates several of these ideas: synthetic augmentation is used to simulate dense tissue variability; focal loss is employed to prioritize underrepresented malignancy cases~\cite{2}; and the architecture is designed to accommodate future integration of local data for fine-tuning. Together, these strategies ensure that the model is not only technically sound but also aligned with the demographic and infrastructural realities of Singapore.
 
 In summary, model generalization cannot be assumed across geographic or cultural boundaries. By prioritizing localization, training flexibility, and data-efficient learning, this project builds an AI system that is clinically relevant, demographically sensitive, and adaptable to future expansions in real-world Singaporean screening programs.
 
 \subsection{Summary of Gaps and Relevance to This Project}
 
-The literature reviewed across clinical models, deep learning strategies, explainability, and dataset generalization reveals critical gaps that inform this project’s design decisions. Rather than offering a generic summary, this section presents an analysis of how each limitation directly influences the features, architecture, and deployment considerations of the proposed system.
+The literature reveals several key limitations that shape this project’s design. Traditional clinical models lack sensitivity in dense breast tissue~\cite{1}, while many deep learning (DL) models are trained on non-local datasets~\cite{1,6}, limiting their generalizability to Singapore. Explainability remains a major barrier to clinical adoption~\cite{3,5}, and data scarcity hinders model training in small populations~\cite{4}. In response, this project adopts a CNN-based pipeline with Grad-CAM explainability, uses augmentation for dense tissue simulation, and emphasizes localization and auditability to improve both performance and clinical relevance in Singapore’s screening context.
 
 \begin{itemize}
     \item \textbf{Gap 1: Limited Predictive Power of Clinical Risk Models}\\
-    Existing tools like the Gail and Tyrer-Cuzick models rely on structured questionnaire inputs and ignore visual indicators present in mammograms. These models struggle particularly in women with dense breast tissue—a common trait among Singaporean women~\cite{6}. Deep learning models~\cite{1,7} have shown stronger performance in identifying malignancy through image features. \textit{Therefore, this project adopts a CNN-based model trained on full-field mammograms to provide higher-resolution risk detection that accounts for local anatomical traits.}
+    Existing tools like the Gail and Tyrer-Cuzick models rely on structured questionnaire inputs and ignore visual indicators present in mammograms. These models struggle particularly in women with dense breast tissue—a common trait among Singaporean women~\cite{6}. Deep learning models~\cite{1,7} have shown stronger performance in identifying malignancy through image features. Therefore, this project adopts a CNN-based model trained on full-field mammograms to provide higher-resolution risk detection that accounts for local anatomical traits.
 
     \item \textbf{Gap 2: Lack of Explainability Hinders Clinical Trust}\\
-    CNNs are often criticized for their opacity~\cite{3,5}. Without interpretability, clinical uptake is limited. Grad-CAM offers a partial solution by generating saliency maps aligned with diagnostic regions~\cite{5}. \textit{This project integrates Grad-CAM to ensure radiologists can visually verify AI predictions and maintain control over diagnostic decisions, addressing trust and accountability concerns in real-world deployments.}
+    CNNs are often criticized for their opacity~\cite{3,5}. Without interpretability, clinical uptake is limited. Grad-CAM offers a partial solution by generating saliency maps aligned with diagnostic regions~\cite{5}. This project integrates Grad-CAM to ensure radiologists can visually verify AI predictions and maintain control over diagnostic decisions, addressing trust and accountability concerns in real-world deployments.
 
     \item \textbf{Gap 3: Western-Centric Data Limits Generalization}\\
-    Models trained on Western cohorts often fail to generalize to Southeast Asian populations~\cite{6}. High-density breast tissue, screening hesitancy, and sociocultural differences alter risk profiles. \textit{This project uses stratified evaluation and region-specific augmentation strategies to simulate local data characteristics and ensure performance relevance in Singaporean women.}
+    Models trained on Western cohorts often fail to generalize to Southeast Asian populations~\cite{6}. High-density breast tissue, screening hesitancy, and sociocultural differences alter risk profiles. This project uses stratified evaluation and region-specific augmentation strategies to simulate local data characteristics and ensure performance relevance in Singaporean women.
 
     \item \textbf{Gap 4: Scarcity of Annotated Data in Southeast Asia}\\
-    Annotated medical imaging data is often inaccessible due to privacy laws and cohort limitations. Alternative training paradigms such as semi-supervised and weakly supervised learning have been proposed~\cite{4}. \textit{This project incorporates data augmentation and simplified CNNs with lower parameter counts to reduce the need for extensive labeled data while maintaining robustness.}
+    Annotated medical imaging data is often inaccessible due to privacy laws and cohort limitations. Alternative training paradigms such as semi-supervised and weakly supervised learning have been proposed~\cite{4}. This project incorporates data augmentation and simplified CNNs with lower parameter counts to reduce the need for extensive labeled data while maintaining robustness.
 
     \item \textbf{Gap 5: Overreliance on Transfer Learning from Natural Images}\\
-    While transfer learning is common, recent studies show that pretrained features from ImageNet are frequently overwritten during fine-tuning in medical domains~\cite{2}. \textit{This project evaluates both pretrained and scratch-trained CNN variants to determine the most effective approach under low-data, domain-specific conditions.}
+    While transfer learning is common, recent studies show that pretrained features from ImageNet are frequently overwritten during fine-tuning in medical domains~\cite{2}. This project evaluates both pretrained and scratch-trained CNN variants to determine the most effective approach under low-data, domain-specific conditions.
 \end{itemize}
 
 \vspace{0.5em}
@@ -180,24 +180,27 @@ These strategies form the foundation of a culturally responsive, explainable AI 
 
 \subsection{Analysis of Similar Projects and Tools}
 
-To guide the design of this project’s prototype, several real-world and academic AI systems in breast cancer screening were reviewed. These systems provide critical insights into what works—and what must be improved—to ensure technical success and clinical adoption in real-world healthcare settings like Singapore.
+Several notable AI systems and studies in breast cancer screening have influenced this project’s design. Each offers lessons on performance, integration, and limitations that inform how the proposed prototype addresses both technical and clinical challenges specific to Singapore.
+
+\subsection{Analysis of Similar Projects and Tools}
+
+Several notable AI systems and studies in breast cancer screening have influenced this project’s design. Each offers lessons on performance, integration, and limitations that inform how the proposed prototype addresses both technical and clinical challenges specific to Singapore.
 
 \begin{itemize}
     \item \textbf{Google Health / DeepMind – Mammogram AI System} \\
-    A 2020 study evaluated an AI system trained on over 90,000 mammograms from the US and UK, showing that it could outperform radiologists in controlled settings~\cite{11}. However, its performance declined when applied to unseen populations. \textit{This project incorporates stratified testing and local demographic simulation to ensure model generalizability to Singapore’s multi-ethnic population.}
+    This system, trained on over 90,000 mammograms, outperformed radiologists in controlled studies~\cite{11}. However, its performance dropped on external datasets, revealing issues with generalization. Lesson learned: High performance on training data does not guarantee effectiveness in diverse clinical environments. This project addresses this by simulating local demographics, applying stratified testing, and fine-tuning for Singaporean breast density profiles.
 
     \item \textbf{Zebra Medical Vision – Scalable Cancer Detection Tools} \\
-    Zebra developed FDA-cleared AI tools for breast cancer detection and deployed them at scale via cloud-based infrastructure~\cite{12}. Their success came from integration into existing workflows. \textit{This project uses lightweight models and explainable visual outputs (via Grad-CAM) to enable similar compatibility with systems like BreastScreen Singapore.}
+    Zebra’s tools are notable for regulatory approval and cloud-based deployment~\cite{12}. Their success is attributed to seamless integration into existing radiology workflows. However, limited transparency in model decisions raises concerns. Lesson learned: Integration must be paired with explainability. This project builds a lightweight CNN with embedded Grad-CAM outputs to promote workflow compatibility while ensuring interpretability.
 
     \item \textbf{Shen et al. (2019) – CNN-Based Mammogram Classifier} \\
-    This academic study demonstrated that CNNs can significantly boost mammographic sensitivity and specificity~\cite{7}, but also emphasized the importance of high-quality training data. \textit{This project uses data augmentation, synthetic sampling, and reduced-parameter CNNs to mitigate local data scarcity.}
+    Shen et al. demonstrated strong results using CNNs to detect cancerous regions~\cite{7}, but also highlighted dependence on high-quality, well-annotated datasets. Lesson learned: Data quality and volume remain a bottleneck. This project adopts augmentation techniques and reduced-parameter models to address local data scarcity while maintaining diagnostic relevance.
 
     \item \textbf{Salim et al. (2024) – AI in Population-Based Screening (Sweden)} \\
-    A recent real-world deployment across 58,000 mammograms found that AI-assisted screening improved workflow efficiency while maintaining diagnostic accuracy~\cite{13}. \textit{This project follows a similar assistive philosophy—offering clinicians interpretable risk assessments, not automated diagnoses.}
+    In this large-scale, real-world deployment, AI-assisted screening improved efficiency without compromising accuracy~\cite{13}. However, full automation was not implemented; human oversight remained essential. Lesson learned: AI should support, not replace, clinicians. This project follows the same clinician-in-the-loop paradigm—delivering interpretable risk scores to enhance, rather than replace, radiologist decision-making.
 \end{itemize}
 
-These examples reinforce key design choices in this project: use of explainable CNNs, integration-readiness for local infrastructure, data-efficient training strategies, and a clinician-in-the-loop approach tailored for Singapore’s screening ecosystem.
-
+These projects underscore the importance of generalization, explainability, data efficiency, and clinical compatibility. Their strengths validate the inclusion of CNNs and Grad-CAM in this project, while their limitations justify additional safeguards such as local demographic tuning and modular system design to ensure practical impact in Singapore's healthcare ecosystem.
 %-------------Project Design Page-------------
 \newpage
 \section{Project Design}
@@ -205,11 +208,47 @@ These examples reinforce key design choices in this project: use of explainable 
 \subsection{User and Domain Context}
 This project is designed for use by clinical radiologists and public health administrators within Singapore’s national breast cancer screening infrastructure. The domain focuses on AI-assisted diagnostic tools for mammogram analysis, especially among women aged 40–60 with dense breast tissue. This demographic is underrepresented in most Western training datasets, necessitating a locally contextualized system.
 
+These users were chosen because they are directly involved in interpreting screening results and making early intervention decisions. An AI tool tailored to their needs can improve diagnostic accuracy, reduce workload, and support informed public health strategies—especially in a population with unique imaging challenges like dense breast tissue.
+
 \subsection{System Architecture}
 
-The system architecture is designed to support accurate and interpretable breast cancer risk prediction using mammographic images, with a focus on dense tissue scenarios commonly observed in Singaporean women. Each component of the architecture is included for its role in fulfilling clinical performance requirements while supporting transparency in decision-making.
+Figure~\ref{fig:system_architecture} provides a high-level architectural overview of the proposed breast cancer risk prediction system. It highlights the key components—from image preprocessing to CNN-based classification and explainability via Grad-CAM~\cite{1,5}. Presenting the system architecture upfront provides a visual anchor for the subsequent description of each module.
+
+The pipeline begins with mammographic image input, which is first passed through a preprocessing module (elaborated in Section~\ref{subsection:Feature Engineering}) that includes standardization techniques such as grayscale conversion, normalization, and augmentation. The cleaned and normalized images are then fed into the CNN backbone (e.g., ResNet-50 or EfficientNet-B0) for feature extraction.
+
+From here, the architecture diverges into two parallel outputs:
+\begin{itemize}
+    \item A prediction head that computes a cancer risk probability score (detailed in the model section).
+    \item A Grad-CAM explainability module that generates visual heatmaps to highlight important diagnostic regions.
+\end{itemize}
+
+Together, these modules form a clinician-assistive diagnostic tool capable of both prediction and transparent decision support, aligning with the system’s core objectives of accuracy, interpretability, and local adaptability.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=1cm and .5cm,
+        box/.style={rectangle, draw=black, fill=blue!10, rounded corners, minimum width=2.5cm, minimum height=1.5cm, align=center},
+        arrow/.style={->, thick}
+        ]
+        
+        \node[box] (input) {Input\\Mammogram};
+        \node[box, right=of input] (featureeng) {Feature Engineering\\(Denoise, Augment, Align)};
+        \node[box, right=of featureeng] (cnn) {CNN Backbone\\(ResNet/EfficientNet)};
+        \node[box, right=of cnn] (gradcam) {Grad-CAM\\Explainability};
+        \node[box, below=1.7cm of cnn] (output) {Risk Score\\(Probability)};
+        
+        \draw[arrow] (input) -- (featureeng);
+        \draw[arrow] (featureeng) -- (cnn);
+        \draw[arrow] (cnn) -- (gradcam);
+        \draw[arrow] (cnn) -- (output);
+    \end{tikzpicture}
+    \caption{System architecture for explainable breast cancer risk prediction using convolutional neural networks (CNNs)~\cite{1} and Grad-CAM~\cite{5}, with feature engineering integrated as a preprocessing stage.}
+    \label{fig:system_architecture}
+\end{figure}
 
 \paragraph{Input Preprocessing Layer.}
+
 Mammographic images from different sources often vary in resolution, lighting, and embedded metadata. To ensure model robustness, this stage standardizes image inputs for consistent downstream processing. Based on best practices in mammogram preprocessing~\cite{7,14}, and observations from the DDSM dataset~\cite{17}, the following steps are included:
 
 \begin{itemize}
@@ -232,32 +271,8 @@ Following feature extraction, the output is flattened and passed through fully c
 \paragraph{Explainability Module.}
 Explainability is a design priority, not an afterthought. To address clinical transparency, Grad-CAM is integrated into the architecture. It visualizes attention maps by highlighting regions of the input image that contributed most to a model’s decision~\cite{5}. This enhances radiologists' trust and provides a layer of clinical validation—particularly important in high-density or ambiguous cases where interpretability directly impacts diagnostic decisions.
 
-\paragraph{Pipeline Overview.}
-
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}[
-        node distance=1cm and .5cm,
-        box/.style={rectangle, draw=black, fill=blue!10, rounded corners, minimum width=1.5cm, minimum height=1.5cm, align=center},
-        arrow/.style={->, thick}
-        ]
-        
-        \node[box] (input) {Input\\Mammogram};
-        \node[box, right=of input] (preprocess) {Preprocessing\\(Rescale, Normalize)};
-        \node[box, right=of preprocess] (cnn) {CNN Backbone\\(ResNet/EfficientNet)};
-        \node[box, right=of cnn] (gradcam) {Grad-CAM\\Explainability};
-        \node[box, below=1.7cm of cnn] (output) {Risk Score\\(Probability)};
-        
-        \draw[arrow] (input) -- (preprocess);
-        \draw[arrow] (preprocess) -- (cnn);
-        \draw[arrow] (cnn) -- (gradcam);
-        \draw[arrow] (cnn) -- (output);
-    \end{tikzpicture}
-    \caption{System architecture for explainable breast cancer risk prediction using convolutional neural networks (CNNs)~\cite{1} and Grad-CAM~\cite{5}.}
-    \label{fig:system_architecture}
-\end{figure}
-
 Figure~\ref{fig:system_architecture} illustrates the overall pipeline. After preprocessing, images flow through a CNN for feature extraction~\cite{1}. One branch produces a risk score; the other passes through Grad-CAM~\cite{5} to generate attention heatmaps.
+
 
 \paragraph{Design Considerations.}
 Each module is deliberately kept modular and swappable. This enables future expansion, such as fine-tuning on Singaporean-specific data, incorporating metadata like patient history, or using multi-view mammography inputs~\cite{8}. This architectural flexibility ensures that the system can evolve as screening datasets, clinical requirements, and deployment contexts grow more complex.
@@ -266,23 +281,26 @@ In summary, this architecture reflects a balance between predictive strength and
 
 \subsection{Dataset Used}
 
+This project uses imaging datasets to train, evaluate, and simulate clinical performance of the proposed deep learning system. While the prototype is built using DDSM from Kaggle due to its accessibility, other datasets are reviewed to guide future enhancements for local deployment.
+
 \paragraph{Primary Dataset – DDSM.}
-The Digital Database for Screening Mammography (DDSM)~\cite{17} serves as the primary dataset. It comprises over 2,600 cases with four standard views per patient (cranio-caudal (CC) and mediolateral oblique (MLO) for each breast), along with verified pathology and ground-truth masks for abnormalities. This dataset provides a solid foundation for training and evaluating convolutional neural network (CNN)-based models due to its detailed annotation and diversity of tissue presentations. It contains both normal and cancerous cases, enabling the model to learn from contrastive examples.
+The Digital Database for Screening Mammography (DDSM)~\cite{17} serves as the main dataset used for model training, testing, and prototyping. It includes over 2,600 cases with four standard views per patient (cranio-caudal (CC) and mediolateral oblique (MLO) for each breast), along with verified pathology reports and ground-truth lesion masks. Its large volume and detailed annotations make it suitable for developing convolutional neural network (CNN)-based risk prediction models. The diversity of cases—covering both normal and malignant presentations—supports effective feature learning and contrastive classification.
 
 \paragraph{Auxiliary Dataset – BreaKHis.}
-The Breast Cancer Histopathological Image Classification (BreaKHis) dataset~\cite{18} is incorporated for auxiliary testing and domain adaptation experiments. Although histopathology data differ from mammograms, they offer complementary insights into cellular-level features and enable the project to explore cross-domain robustness.
+The Breast Cancer Histopathological Image Classification (BreaKHis) dataset~\cite{18} is reviewed for its potential use in future domain adaptation experiments. While it was not used in the initial prototype, it offers cellular-level detail and can be valuable for studying cross-domain robustness between mammographic and histopathological representations of breast cancer.
 
 \paragraph{Singapore-Specific Contextualization.}
-Despite their value, both DDSM and BreaKHis originate from Western populations. To simulate Singaporean demographic conditions, stratified testing subsets will be constructed. Breast density and age distributions will be calibrated using data reported by the Singapore Breast Cancer Cohort~\cite{6} and the BreastScreen Singapore program~\cite{19}. Synthetic augmentation will mimic tissue characteristics more common among local women—such as denser fibroglandular tissue and smaller breast volume. This enables context-aware evaluation and reveals limitations in model generalizability.
+Although DDSM and BreaKHis are sourced from Western populations, this project is ultimately intended for use in Singapore. To simulate local screening challenges, future iterations of the model can incorporate demographic traits reported in the Singapore Breast Cancer Cohort~\cite{6} and the BreastScreen Singapore program~\cite{19}. These include higher prevalence of dense breast tissue and smaller breast volumes. Synthetic augmentation (e.g., increased density simulation) is used in the current model to partially approximate these traits and support contextual relevance.
 
 \paragraph{Ethical Considerations.}
-All datasets used are publicly available and de-identified, aligning with ethical guidelines for secondary use. In a future deployment scenario, local datasets such as those from National University Hospital (NUH) or Singapore General Hospital (SGH) could be integrated under appropriate ethics approval.
-
-\vspace{1em}
+All datasets used are publicly available and de-identified, in accordance with ethical research standards. If institutional datasets from NUH or SGH are used in future development stages, formal ethics board approval will be sought prior to integration.
 
 \subsection{Feature Engineering}
+\label{subsection:Feature Engineering}
 
-Feature engineering is a critical bridge between raw mammographic data and effective CNN-based learning. As outlined in Figure~\ref{fig:end_to_end_pipeline}, this stage transforms high-resolution DICOM inputs into standardized, diverse, and clinically enriched representations suitable for training. The goal is to optimize generalization and sensitivity, particularly in dense breast tissue scenarios that are common among Singaporean women.
+As indicated in the System Architecture (Figure~\ref{fig:system_architecture}), feature engineering is a foundational component of the preprocessing module. It ensures that raw mammographic data are transformed into a consistent and clinically enriched format suitable for CNN-based analysis. This step precedes the CNN backbone in the pipeline and directly influences both the prediction accuracy and the quality of Grad-CAM visualizations.
+
+Figure~\ref{fig:end_to_end_pipeline} expands on this preprocessing phase in greater detail—illustrating the specific transformations applied to raw DICOM images before they are passed into the CNN for feature extraction and classification.
 
 \begin{figure}[H]
     \centering
@@ -312,6 +330,8 @@ Feature engineering is a critical bridge between raw mammographic data and effec
     \caption{End-to-end pipeline for breast cancer risk prediction, integrating preprocessing, multi-view feature alignment, CNN classification, and visual explainability.}
     \label{fig:end_to_end_pipeline}
 \end{figure}
+
+The purpose of this step is to enhance generalization and sensitivity, particularly in dense breast tissue scenarios that are common among Singaporean women. It includes denoising, contrast enhancement, multi-view alignment, and augmentation strategies—all of which standardize input images and simulate clinical variability. These processes not only improve model learning but also ensure consistency across the prediction and explainability branches of the architecture.
 
 \paragraph{Preprocessing and Augmentation.}
 The initial phase of feature engineering focuses on cleaning and enhancing the diagnostic quality of raw mammograms. This step is essential to ensure consistent model input and eliminate irrelevant imaging artifacts.
@@ -356,31 +376,18 @@ In addition to automated learning, domain knowledge is embedded to focus the mod
 These domain-guided strategies strengthen the model’s interpretability and diagnostic sensitivity. They also support the project’s goal of building a culturally adapted, clinically grounded AI system for breast cancer risk prediction.
 
 \subsection{Algorithm Selection}
-Chosen for its proven performance and balance of depth, ResNet-50 will serve as the initial benchmark. Its residual connections allow deeper gradient flow and faster convergence.
 
-\paragraph{Alternative Models.}
-Two models are benchmarked alongside ResNet:
+The choice of model architecture is guided by the need for high diagnostic accuracy, computational efficiency, and interpretability. ResNet-50 is selected as the primary benchmark due to its widespread success in medical imaging tasks~\cite{1,7}. Its use of residual connections enables deeper networks to converge efficiently while maintaining stability, making it a robust starting point for breast cancer image classification.
+
+To explore trade-offs between accuracy, efficiency, and adaptability to medical data, two alternative architectures are also considered:
+
 \begin{itemize}
-    \item \textbf{EfficientNet-B0:} Offers comparable accuracy with fewer parameters and reduced computation, ideal for edge deployment.
-    \item \textbf{Custom Shallow CNN:} Inspired by Raghu et al.\ (2019), a smaller architecture trained from scratch will test the hypothesis that transfer learning from ImageNet is not always optimal in medical imaging.
+    \item \textbf{EfficientNet-B0:} Known for its compound scaling approach, EfficientNet-B0 provides competitive performance with significantly fewer parameters than ResNet. This makes it well-suited for applications where computational resources are limited, such as deployment on hospital systems or edge devices.
+    
+    \item \textbf{Custom Shallow CNN:} Inspired by findings from Raghu et al.~\cite{2}, which suggest that transfer learning from large-scale natural image datasets (e.g., ImageNet) may not always benefit medical imaging tasks, a smaller model trained from scratch is included to test this hypothesis in a localized screening context.
 \end{itemize}
 
-\paragraph{Loss Function.}
-Given the inherent class imbalance in breast cancer screening datasets—where malignant cases are relatively rare—choosing an appropriate loss function is crucial. The model is initially trained using Binary Cross-Entropy (BCE), a standard choice for binary classification tasks:
-
-$$
-\mathcal{L}_{\text{BCE}} = -\left[y \cdot \log(p) + (1 - y) \cdot \log(1 - p)\right]
-$$
-
-where $y \in \{0, 1\}$ is the ground truth label, and $p$ is the predicted probability of the positive (malignant) class.
-
-However, BCE treats all samples equally, which may bias the model toward the dominant benign class. To mitigate this and better prioritize harder examples—particularly early-stage or subtle malignancies—a modified objective function, Focal Loss, is introduced:
-
-$$
-\mathcal{L}_{\text{focal}} = -\alpha_t(1 - p_t)^\gamma \log(p_t)
-$$
-
-Here, $p_t$ denotes the predicted probability for the ground truth class, $\alpha_t$ is a weighting factor to balance class contributions (e.g., higher for malignant), and $\gamma > 1$ is a focusing parameter. Setting $\gamma = 2$ reduces the loss contribution from easy examples and focuses learning on harder, misclassified cases. This is particularly valuable for enhancing sensitivity in dense breast tissue scenarios, where cancer detection is more challenging. The loss function thus directly supports the project's clinical objective of reducing false negatives in high-risk subgroups.
+These models were selected to support a design goal of adaptability. Depending on hardware constraints and screening requirements, different trade-offs may be acceptable. Benchmarking across these models will provide insight into the optimal balance between accuracy, efficiency, and generalization, especially for dense tissue scenarios in Singaporean women.
 
 \paragraph{Optimization and Regularization.}
 The Adam optimizer with a cyclical learning rate is used. Dropout layers are placed after the final dense layer to reduce overfitting. Early stopping with patience=10 is implemented.
@@ -390,11 +397,17 @@ The Adam optimizer with a cyclical learning rate is used. Dropout layers are pla
 \subsection{Evaluation Metrics}
 
 \paragraph{Quantitative Metrics.}
+To evaluate model performance in a clinically meaningful way, the following metrics are selected based on their relevance to screening effectiveness, risk stratification, and imbalanced data contexts:
+
 \begin{itemize}
-    \item \textbf{AUC (Area Under the ROC Curve):} Primary metric to compare model discriminability, aligned with clinical risk score assessments.
-    \item \textbf{Sensitivity \& Specificity:} Key indicators in screening settings. Sensitivity is emphasized to reduce false negatives.
-    \item \textbf{F1-Score:} Provides a harmonic mean of precision and recall, especially relevant in imbalanced settings.
+    \item \textbf{AUC (Area Under the ROC Curve):} AUC reflects the model’s ability to distinguish between malignant and benign cases across all thresholds. It is used as the primary metric because it captures overall discriminability—a key requirement for risk prediction tools used in screening workflows~\cite{1}. Higher AUC values indicate better model calibration across diverse patient profiles.
+
+    \item \textbf{Sensitivity \& Specificity:} These are critical in the context of breast cancer screening, where the trade-off between detecting cancer (sensitivity) and avoiding unnecessary follow-ups (specificity) must be carefully managed. Sensitivity is prioritized in this project to reduce false negatives, particularly in dense breast tissue cases where early-stage cancers may be visually subtle and harder to detect~\cite{6}.
+
+    \item \textbf{F1-Score:} Given the class imbalance typical in screening datasets (i.e., far fewer cancer cases), accuracy alone is insufficient. F1-score is used to provide a balanced evaluation that accounts for both precision and recall—ensuring that the model not only detects cancer but does so consistently without overpredicting positives.
 \end{itemize}
+
+These metrics are selected to reflect both clinical relevance and technical robustness, aligning with the project’s dual goals of diagnostic performance and safe deployment in real-world screening contexts.
 
 \paragraph{Explainability Evaluation.}
 Grad-CAM heatmaps are overlaid on input mammograms and qualitatively scored by domain experts (when feasible) to assess alignment with tumor regions or diagnostic cues.
@@ -434,21 +447,24 @@ This project adopts a structured, explainable deep learning architecture validat
 
 \subsection{Work Plan and Project Timeline}
 
-This project follows a structured timeline that spans from July to early September 2024. It is organized into four major phases:
+This project follows a structured timeline spanning from July to early September 2024, divided into four main phases to manage complexity, reduce risk, and ensure timely delivery. The planning was informed by a top-down decomposition of tasks based on project requirements, module interdependencies, and key submission milestones (e.g., briefing, prototype, final report). Each phase was allocated based on task duration, estimated workload, and built-in contingency.
 
 \begin{enumerate}
-    \item \textbf{Project Conceptualising (Weeks 1–5):} Includes idea formulation, early research, literature review, and preparation of briefing materials.
-    \item \textbf{Project Planning and Design (Weeks 5–9):} Covers system design, prototyping, drafting of detailed work plans, and early-stage reporting.
-    \item \textbf{Development and Testing (Weeks 10–18):} Encompasses data preprocessing, model development, training, validation, and initial evaluation.
-    \item \textbf{Final Sprint (Weeks 18–25):} Focuses on final model evaluation, report writing, video presentation, and includes buffer time for contingency.
+    \item \textbf{Project Conceptualising (Weeks 1–5):} This phase focuses on understanding the problem domain, reviewing prior work, and preparing early deliverables (e.g., proposal video, literature review). Front-loading research activities ensures a strong theoretical foundation for later implementation.
+
+    \item \textbf{Project Planning and Design (Weeks 5–9):} Here, the system architecture, dataset choices, and evaluation methods are formalized. Time is also allocated for early prototyping to identify technical feasibility and refine scope before development.
+
+    \item \textbf{Development and Testing (Weeks 10–18):} The longest phase, this includes model training, iterative testing, and evaluation. Tasks are sequenced to allow progressive model improvements while maintaining checkpoints for early validation. This modular approach reduces integration risk.
+
+    \item \textbf{Final Sprint (Weeks 18–25):} Reserved for final evaluation, report writing, and video presentation. A buffer period is also included (Week 25) to manage unexpected delays, ensuring submission readiness without compromising quality.
 \end{enumerate}
 
-Figure~\ref{fig:gantt} presents the visual Gantt chart outlining key tasks and deadlines, ensuring accountability across all milestones.
+Figure~\ref{fig:gantt} presents the Gantt chart visualizing these stages. The timeline not only tracks task completion but also helps balance workload over time and provides early visibility into potential bottlenecks—ensuring the project remains on schedule.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{images/GanttChart.png}
-    \caption{Project Gantt chart showing planned activities from July to September 2024, divided into phases of research, development, evaluation, and reporting.}
+    \caption{Project Gantt chart showing planned activities from July to September 2024, divided into phases of research, design, development, and reporting.}
     \label{fig:gantt}
 \end{figure}
 
