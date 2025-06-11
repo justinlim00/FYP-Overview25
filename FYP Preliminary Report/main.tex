@@ -8,6 +8,7 @@
 \usepackage{float}
 \usepackage{amsmath}
 \usepackage{tikz}
+\usepackage{booktabs}
 \usetikzlibrary{positioning, shapes.geometric, arrows.meta}
 
 \geometry{a4paper, margin=1in}
@@ -471,9 +472,130 @@ Figure~\ref{fig:gantt} presents the Gantt chart visualizing these stages. The ti
 %-------------Feature Prototype Page-------------
 \newpage
 \section{Feature Prototype}
+
 \subsection{Development Strategy}
+This section documents the current implementation progress of the AI-powered breast cancer screening tool, referencing the modular pipeline and objectives described in Chapter 3 (Project Design).
+
+The system was designed as a 4-stage pipeline:
+\begin{enumerate}
+    \item Data Preprocessing (\texttt{01\_preprocessing.ipynb})
+    \item Model Training (\texttt{02\_model\_training.ipynb})
+    \item Grad-CAM Visualization (\texttt{03\_gradcam\_visualization.ipynb})
+    \item Evaluation (planned: \texttt{04\_evaluation.ipynb})
+\end{enumerate}
+
+Each notebook corresponds to a critical module outlined in the architecture. The design intention was to ensure modularity, reproducibility, and ease of experimentation.
+
+\paragraph{01\_preprocessing.ipynb}
+In line with Section 3.2 of the design, the preprocessing stage involved:
+\begin{itemize}
+    \item Loading and parsing the CBIS-DDSM dataset (converted to PNG).
+    \item Applying grayscale transformation and resizing to 224x224 for compatibility with CNN input.
+    \item Stratified data splitting into training/validation/test sets.
+\end{itemize}
+This notebook ensures clean, consistent input to the model and reflects the objective of maintaining clinical fidelity while preparing data for deep learning.
+
+\paragraph{02\_model\_training.ipynb}
+Following Section 3.3, a CNN was implemented using Keras to perform binary classification (Benign vs Malignant). Key decisions include:
+\begin{itemize}
+    \item Using 2D convolutions with ReLU activations and max pooling.
+    \item Adding dropout for regularization.
+    \item Using a sigmoid output unit and binary cross-entropy loss.
+\end{itemize}
+We trained on a class-imbalanced dataset. Thresholding and class weights were considered to address this, as discussed in 3.4. A threshold comparison table was also constructed.
+
+\begin{table}[H]
+\centering
+\caption{Precision, Recall, and F1-Score at Different Thresholds}
+\begin{tabular}{lccc}
+\toprule
+Threshold & Precision & Recall & F1-Score \\
+\midrule
+0.2 & 0.32 & 0.88 & 0.47 \\
+0.3 & 0.40 & 0.77 & 0.53 \\
+0.5 & 0.55 & 0.45 & 0.49 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+As Table 1 demonstrates, lowering the classification threshold from the default 0.5 to 0.3 resulted in a significant gain in recall (from 0.45 to 0.77), which aligns with the clinical priority of maximizing sensitivity in cancer screening. Although this decision comes at the cost of precision (dropping from 0.55 to 0.40), the trade-off is justified by the overarching goal to reduce false negatives, as discussed in Section 3.6.
+
+\paragraph{Threshold Selection Justification}
+The final choice of 0.3 as the operating threshold was based on a balance between maximizing true positive rates and controlling overdiagnosis. In a screening setting, failing to detect a malignant case (false negative) can have critical consequences. While higher thresholds such as 0.5 offer better precision, they sacrifice sensitivity, which contradicts Objective 1 of ensuring high recall. The 0.3 threshold provided the highest F1-score among the options tested, indicating a better balance between sensitivity and precision.
+
+\paragraph{Performance Implications}
+At threshold 0.3, the model achieved a sensitivity of 77.05\%, precision of 40.4\%, and an F1 score of 53.0\%. These results suggest that the classifier is biased toward predicting malignancy, a behavior evident in the confusion matrix (Figure 2). The ROC AUC score of 0.5046 (Figure 3) indicates that the model struggles to discriminate between the two classes effectively. This reinforces the need to explore alternative architectures or better optimization techniques in future stages.
+
+\paragraph{03\_gradcam\_visualization.ipynb}
+This module implements Grad-CAM using Keras backend and overlays heatmaps on original mammogram slices. As per Section 3.5, this was critical for interpretability. Implementation highlights:
+\begin{itemize}
+    \item Accessing the final convolutional layer (\texttt{last\_conv}).
+    \item Computing gradient-weighted class activation maps.
+    \item Overlaying normalized heatmaps on grayscale inputs.
+\end{itemize}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{images/gradcam_grid.png}
+\caption{Sample Grad-CAM overlay grid (Benign vs Malignant)}
+\end{figure}
+Figure 1 shows Grad-CAM overlays across four examples. Although the overlays align with dense regions, they lack consistent focus on known tumour regions, indicating the need for better contrast or tuning.
+
 \subsection{Evaluation}
+Preliminary evaluation of the trained CNN model yielded the following results:
+
+\begin{table}[H]
+\centering
+\caption{Evaluation Metrics on Test Set}
+\begin{tabular}{lr}
+\toprule
+Metric & Score \\
+\midrule
+Accuracy & 0.4412 \\
+Precision & 0.4039 \\
+Sensitivity (Recall) & 0.7705 \\
+Specificity & 0.2133 \\
+F1-Score & 0.5300 \\
+AUC & 0.5046 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table 2 reflects a strong sensitivity (77.05\%) but poor specificity, affirming the threshold trade-off decision. This prioritization of sensitivity is clinically motivated, aiming to reduce missed cancers.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.45\textwidth]{images/confusion_matrix.png}
+\caption{Confusion Matrix (Threshold = 0.3)}
+\end{figure}
+Figure 2 confirms this bias, with a large number of false positives contributing to the low specificity.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{images/roc_curve.png}
+\caption{ROC Curve with AUC = 0.5046}
+\end{figure}
+Figure 3 visualizes the ROC curve, which shows near-random performance. This further validates the need for alternative architectures or improved training strategies.
+
 \subsection{Improvements and Next Steps}
+To fulfill the objectives defined in Section 1.3 and meet the architectural plan in Chapter 3:
+\begin{itemize}
+    \item \textbf{Model Comparison:} Implement and evaluate at least one additional model (e.g., VGG16 or ResNet50 pretrained on ImageNet) for benchmarking.
+    \item \textbf{Grad-CAM Tuning:} Adjust normalization, contrast scaling, and colormap enhancements to produce clinically meaningful saliency maps.
+    \item \textbf{Evaluation Notebook:} Implement 04\_evaluation.ipynb to calculate all metrics (AUC, F1, Sensitivity, Specificity, Confusion Matrix) on the test set.
+    \item \textbf{Objective Coverage:} Ensure that interpretability (via Grad-CAM) and discriminability (via metrics) are aligned with the stated goals of early detection and safe deployment.
+\end{itemize}
+
+\subsection*{Unmet Objectives}
+\begin{itemize}
+    \item No comparative model has been trained yet (e.g., pretrained ResNet/VGG) — needed to meet Objective 3.
+    \item Grad-CAM saliency maps are not yet visually aligned with expected tumour regions — violates Objective 2.
+    \item Evaluation notebook is not finalized — only manual metrics computed so far.
+\end{itemize}
+
+\subsection*{Word Count}
+\textit{\small 1284 words}
+
+
 
 %-------------Appendices Page-------------
 \newpage

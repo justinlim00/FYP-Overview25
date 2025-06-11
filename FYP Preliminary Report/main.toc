@@ -44,13 +44,18 @@
 \contentsline {subsection}{\numberline {3.7}Work Plan and Project Timeline}{20}{subsection.3.7}%
 \contentsline {section}{\numberline {4}Feature Prototype}{22}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Development Strategy}{22}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Evaluation}{22}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Improvements and Next Steps}{22}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Appendices}{23}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Figures Referenced in Section 2.1: Limitations of Traditional Risk Models}{23}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Figures Referenced in Section 2.2: Role of Deep Learning in Breast Cancer Imaging}{23}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Figure Referenced in Section 2.3: Explainability in Medical AI}{25}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}Figures Referenced in Section 2.4: Dataset Diversity and Generalization}{26}{subsection.5.4}%
-\contentsline {subsection}{\numberline {5.5}Questionnaire / Lifestyle Simulation Input}{26}{subsection.5.5}%
-\contentsline {subsection}{\numberline {5.6}Sample Transcriptions or Audio Prompts}{26}{subsection.5.6}%
-\contentsline {section}{\numberline {6}References}{27}{section.6}%
+\contentsline {paragraph}{01\_preprocessing.ipynb}{22}{paragraph*.22}%
+\contentsline {paragraph}{02\_model\_training.ipynb}{22}{paragraph*.23}%
+\contentsline {paragraph}{Threshold Selection Justification}{23}{paragraph*.24}%
+\contentsline {paragraph}{Performance Implications}{23}{paragraph*.25}%
+\contentsline {paragraph}{03\_gradcam\_visualization.ipynb}{23}{paragraph*.26}%
+\contentsline {subsection}{\numberline {4.2}Evaluation}{24}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Improvements and Next Steps}{25}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Appendices}{26}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Figures Referenced in Section 2.1: Limitations of Traditional Risk Models}{26}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Figures Referenced in Section 2.2: Role of Deep Learning in Breast Cancer Imaging}{26}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Figure Referenced in Section 2.3: Explainability in Medical AI}{28}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Figures Referenced in Section 2.4: Dataset Diversity and Generalization}{29}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Questionnaire / Lifestyle Simulation Input}{29}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}Sample Transcriptions or Audio Prompts}{29}{subsection.5.6}%
+\contentsline {section}{\numberline {6}References}{30}{section.6}%
