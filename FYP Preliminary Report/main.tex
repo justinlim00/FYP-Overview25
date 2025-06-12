@@ -538,7 +538,7 @@ This module implements Grad-CAM using Keras backend and overlays heatmaps on ori
 \includegraphics[width=0.9\textwidth]{images/gradcam_grid.png}
 \caption{Sample Grad-CAM overlay grid (Benign vs Malignant)}
 \end{figure}
-Figure 1 shows Grad-CAM overlays across four examples. Although the overlays align with dense regions, they lack consistent focus on known tumour regions, indicating the need for better contrast or tuning.
+Figure 1 shows Grad-CAM overlays across four examples. Although the overlays align with dense regions, they lack consistent focus on known tumour regions, indicating the need for better contrast or tuning. This may be due to the model learning broad anatomical patterns rather than localized features. Improvements will explore contrast clipping and feature map layer selection.
 
 \subsection{Evaluation}
 Preliminary evaluation of the trained CNN model yielded the following results:
@@ -560,40 +560,38 @@ AUC & 0.5046 \\
 \end{tabular}
 \end{table}
 
-Table 2 reflects a strong sensitivity (77.05\%) but poor specificity, affirming the threshold trade-off decision. This prioritization of sensitivity is clinically motivated, aiming to reduce missed cancers.
+Table 2 reflects a strong sensitivity (77.05\%) but poor specificity, affirming the threshold trade-off decision. This prioritization of sensitivity is clinically motivated, aiming to reduce missed cancers. The AUC value of 0.5046 confirms that the model is performing only marginally better than random guessing.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.45\textwidth]{images/confusion_matrix.png}
 \caption{Confusion Matrix (Threshold = 0.3)}
 \end{figure}
-Figure 2 confirms this bias, with a large number of false positives contributing to the low specificity.
+Figure 2 confirms this bias, with a large number of false positives contributing to the low specificity. This outcome is a direct result of the decision to shift the threshold in favor of higher recall.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.5\textwidth]{images/roc_curve.png}
 \caption{ROC Curve with AUC = 0.5046}
 \end{figure}
-Figure 3 visualizes the ROC curve, which shows near-random performance. This further validates the need for alternative architectures or improved training strategies.
+Figure 3 visualizes the ROC curve, which shows near-random performance. This further validates the need for improved model design or fine-tuning.
 
 \subsection{Improvements and Next Steps}
-To fulfill the objectives defined in Section 1.3 and meet the architectural plan in Chapter 3:
+To fulfill the objectives defined in Section 1.3 and align with the architectural plan in Chapter 3, the following improvements and tasks have been identified for completion in the final phase of development:
+
 \begin{itemize}
-    \item \textbf{Model Comparison:} Implement and evaluate at least one additional model (e.g., VGG16 or ResNet50 pretrained on ImageNet) for benchmarking.
-    \item \textbf{Grad-CAM Tuning:} Adjust normalization, contrast scaling, and colormap enhancements to produce clinically meaningful saliency maps.
-    \item \textbf{Evaluation Notebook:} Implement 04\_evaluation.ipynb to calculate all metrics (AUC, F1, Sensitivity, Specificity, Confusion Matrix) on the test set.
-    \item \textbf{Objective Coverage:} Ensure that interpretability (via Grad-CAM) and discriminability (via metrics) are aligned with the stated goals of early detection and safe deployment.
+    \item \textbf{Model Comparison:} Thus far, only a custom CNN has been trained and evaluated. To meet Objective 3 (architecture benchmarking), additional models such as pretrained ResNet50 or VGG16 will be implemented and compared using identical data splits and evaluation metrics. This comparison will help determine whether transfer learning improves discriminability on mammography images, as expected from prior literature.
+
+    \item \textbf{Grad-CAM Tuning and Interpretation:} Although Grad-CAM overlays have been successfully generated, they currently lack precision in localizing tumour regions. The activation maps tend to highlight broad areas rather than clearly defined features. Planned improvements include adjusting the heatmap scaling method, enhancing contrast using percentile clipping, and experimenting with different convolutional layers (e.g., earlier layers for finer texture). These changes aim to better meet Objective 2 regarding model interpretability and visual alignment with radiological expectations.
+
+    \item \textbf{Evaluation Pipeline Finalization:} The current evaluation metrics (e.g., F1, AUC, sensitivity) have been computed manually. The final implementation will include a complete notebook (\texttt{04\_evaluation.ipynb}) that programmatically evaluates model performance at different thresholds, generates confusion matrices, and plots ROC curves. This will improve reproducibility and ensure consistency with Section 3.6.
+
+    \item \textbf{Threshold Optimization and Reporting:} As the current model performs best at a threshold of 0.3, future work will include a grid search or Youden index strategy to determine the optimal threshold per model. Metrics at varying thresholds will be compiled into tables and compared to justify the final decision.
+
+    \item \textbf{Objective Coverage Review:} In the final phase, each implemented feature (e.g., model accuracy, interpretability, ROC/AUC performance) will be mapped back to the specific objectives listed in Chapter 1. For example, Objective 1 emphasizes early detection through high sensitivity; Objective 2 focuses on interpretability using Grad-CAM; and Objective 3 calls for comparative evaluation of model architectures. This mapping will be summarized in the conclusion chapter.
 \end{itemize}
 
-\subsection*{Unmet Objectives}
-\begin{itemize}
-    \item No comparative model has been trained yet (e.g., pretrained ResNet/VGG) — needed to meet Objective 3.
-    \item Grad-CAM saliency maps are not yet visually aligned with expected tumour regions — violates Objective 2.
-    \item Evaluation notebook is not finalized — only manual metrics computed so far.
-\end{itemize}
 
-\subsection*{Word Count}
-\textit{\small 1284 words}
 
 
 
