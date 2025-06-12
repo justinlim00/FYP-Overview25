@@ -9,6 +9,8 @@
 \usepackage{amsmath}
 \usepackage{tikz}
 \usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{url}
 \usetikzlibrary{positioning, shapes.geometric, arrows.meta}
 
 \geometry{a4paper, margin=1in}
@@ -51,6 +53,7 @@ This project addresses these challenges by developing a localized, explainable A
 This project proposes an explainable deep learning system that classifies histopathology or mammography images to support breast cancer detection. The system is optimized for diagnostic workflows in Singapore, particularly for patients with dense breast tissue or late-stage presentation. Convolutional Neural Networks (CNNs)~\cite{17}, combined with interpretability tools such as Grad-CAM~\cite{5}, will be used to generate heatmaps that highlight model attention areas, allowing clinicians to visually validate predictions.
 
 \subsection{Project Objectives}
+\label{sec:objectives}
 The main objectives of this project are:
 \begin{itemize}
     \item To develop a CNN-based image classification model that achieves at least 85\% accuracy in detecting breast cancer from mammography and histopathology datasets.
@@ -484,25 +487,39 @@ The system was designed as a 4-stage pipeline:
     \item Evaluation (planned: \texttt{04\_evaluation.ipynb})
 \end{enumerate}
 
-Each notebook corresponds to a critical module outlined in the architecture. The design intention was to ensure modularity, reproducibility, and ease of experimentation.
+Each notebook corresponds to a critical module outlined in the system architecture. These modules are available at \href{https://github.com/justinlim00/FYP-Overview25/tree/main/FYP%20Project/FYP%20Project%20Code%20V1/notebooks}{this GitHub repository}.
+
+The first three components were implemented in this phase because they are foundational to the system's operation and align directly with \nameref{sec:objectives} 1 and 2:
+\begin{itemize}
+    \item Objective 1 – Achieve high sensitivity in malignant case detection;
+    \item Objective 2 – Provide visual interpretability through saliency maps.
+\end{itemize}
+The evaluation module is intentionally deferred to the final phase, since a working model and its outputs are prerequisites for metric-based analysis.
+
+\subsection{Implemented Modules}
 
 \paragraph{01\_preprocessing.ipynb}
-In line with Section 3.2 of the design, the preprocessing stage involved:
+In line with Section 3.2 of the design, this module:
 \begin{itemize}
-    \item Loading and parsing the CBIS-DDSM dataset (converted to PNG).
-    \item Applying grayscale transformation and resizing to 224x224 for compatibility with CNN input.
-    \item Stratified data splitting into training/validation/test sets.
+    \item Parses and loads the CBIS-DDSM dataset in PNG format;
+    \item Applies grayscale transformation and resizes all images to 224x224;
+    \item Performs stratified splitting into training/validation/test sets.
 \end{itemize}
-This notebook ensures clean, consistent input to the model and reflects the objective of maintaining clinical fidelity while preparing data for deep learning.
+This preprocessing was prioritized first to ensure consistent, clinical-grade input to downstream models. The module is designed to be reusable and modular, with image augmentation extensions planned for the next stage.
 
 \paragraph{02\_model\_training.ipynb}
-Following Section 3.3, a CNN was implemented using Keras to perform binary classification (Benign vs Malignant). Key decisions include:
+A custom Convolutional Neural Network (CNN) was implemented in accordance with Section 3.3. Key architectural features:
 \begin{itemize}
-    \item Using 2D convolutions with ReLU activations and max pooling.
-    \item Adding dropout for regularization.
-    \item Using a sigmoid output unit and binary cross-entropy loss.
+    \item 2D convolutional layers with ReLU activation and max pooling;
+    \item Dropout layers for regularization to mitigate overfitting;
+    \item Binary cross-entropy loss function with sigmoid output layer.
 \end{itemize}
-We trained on a class-imbalanced dataset. Thresholding and class weights were considered to address this, as discussed in 3.4. A threshold comparison table was also constructed.
+
+\paragraph{Handling Class Imbalance} The CBIS-DDSM dataset exhibits a skewed distribution, with benign samples outnumbering malignant ones. To address this, class weights were calculated and applied during training using Keras’s \texttt{class\_weight} parameter. This technique amplifies the contribution of minority-class (malignant) samples to the loss function, ensuring the model does not disproportionately favor the majority class. This choice directly supports Objective 1, which emphasizes early detection by maximizing sensitivity.
+
+\paragraph{Prototype Justification} This model was chosen as the first implemented component because it establishes the diagnostic core of the system. Without a functioning classifier, neither interpretability (Grad-CAM) nor evaluation (ROC, confusion matrix) can proceed. It also lays the groundwork for future comparative experiments with pretrained networks in the final implementation.
+
+\paragraph{Key innovation:} A threshold tuning mechanism was introduced post-training to optimize the precision–recall trade-off. This reflects clinical awareness—minimizing false negatives is more important in screening contexts than default accuracy.
 
 \begin{table}[H]
 \centering
@@ -518,28 +535,45 @@ Threshold & Precision & Recall & F1-Score \\
 \end{tabular}
 \end{table}
 
-As Table 1 demonstrates, lowering the classification threshold from the default 0.5 to 0.3 resulted in a significant gain in recall (from 0.45 to 0.77), which aligns with the clinical priority of maximizing sensitivity in cancer screening. Although this decision comes at the cost of precision (dropping from 0.55 to 0.40), the trade-off is justified by the overarching goal to reduce false negatives, as discussed in Section 3.6.
-
 \paragraph{Threshold Selection Justification}
-The final choice of 0.3 as the operating threshold was based on a balance between maximizing true positive rates and controlling overdiagnosis. In a screening setting, failing to detect a malignant case (false negative) can have critical consequences. While higher thresholds such as 0.5 offer better precision, they sacrifice sensitivity, which contradicts Objective 1 of ensuring high recall. The 0.3 threshold provided the highest F1-score among the options tested, indicating a better balance between sensitivity and precision.
+Table 1 shows that a threshold of 0.3 achieves the highest F1-score while retaining high recall. This reflects a deliberate prioritization of sensitivity, consistent with the project’s goal to reduce missed malignancies (Objective 1). Although precision drops at lower thresholds, this trade-off is clinically acceptable given the risk profile of false negatives in cancer detection.
 
 \paragraph{Performance Implications}
-At threshold 0.3, the model achieved a sensitivity of 77.05\%, precision of 40.4\%, and an F1 score of 53.0\%. These results suggest that the classifier is biased toward predicting malignancy, a behavior evident in the confusion matrix (Figure 2). The ROC AUC score of 0.5046 (Figure 3) indicates that the model struggles to discriminate between the two classes effectively. This reinforces the need to explore alternative architectures or better optimization techniques in future stages.
-
+At threshold 0.3, the model yielded a sensitivity of 77.05\%, precision of 40.4\%, and F1-score of 53.0\%. The ROC AUC was 0.5046. While this indicates a tendency toward overcalling malignancy, it is a valid risk-averse choice for screening. However, the modest AUC suggests poor overall discriminability, motivating the need for comparative models and further optimization in subsequent phases.
 \paragraph{03\_gradcam\_visualization.ipynb}
-This module implements Grad-CAM using Keras backend and overlays heatmaps on original mammogram slices. As per Section 3.5, this was critical for interpretability. Implementation highlights:
+This module applies Grad-CAM to visualize salient regions in classified images. Highlights:
 \begin{itemize}
-    \item Accessing the final convolutional layer (\texttt{last\_conv}).
-    \item Computing gradient-weighted class activation maps.
-    \item Overlaying normalized heatmaps on grayscale inputs.
+    \item Uses Keras backend for gradient computation and class activation map extraction;
+    \item Supports overlay of color-mapped heatmaps onto grayscale mammograms;
+    \item Implements enhancements such as percentile-based contrast boosting.
 \end{itemize}
+
+\textbf{Key importance:} Interpretability is central in clinical deployments. This module operationalizes Objective 2, though further improvements are needed for clinical alignment.
+
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{images/gradcam_grid.png}
 \caption{Sample Grad-CAM overlay grid (Benign vs Malignant)}
 \end{figure}
-Figure 1 shows Grad-CAM overlays across four examples. Although the overlays align with dense regions, they lack consistent focus on known tumour regions, indicating the need for better contrast or tuning. This may be due to the model learning broad anatomical patterns rather than localized features. Improvements will explore contrast clipping and feature map layer selection.
 
+\paragraph{Interpretation:}
+Figure 1 shows Grad-CAM overlays on four cases. While high-density areas are consistently highlighted, the visual attention does not always correspond to annotated tumour regions. This suggests the model may be learning general density-based features rather than fine-grained tumour morphology.
+
+\subsection{Pending Modules and Justification}
+\begin{itemize}
+    \item \texttt{04\_evaluation.ipynb} is pending implementation. This module depends on the model training phase and will consolidate all metrics (AUC, sensitivity, F1) into a reproducible report.
+    \item Comparative model training (Objective 3) is deferred to the final phase, as the baseline CNN must be benchmarked first to justify replacement or augmentation via pretrained networks.
+\end{itemize}
+
+\subsection{Why This Order?}
+The chosen implementation order reflects a dependency-driven strategy:
+\begin{enumerate}
+    \item Data preprocessing must precede all modeling tasks.
+    \item Training a working baseline model is a prerequisite for meaningful evaluation or comparison.
+    \item Visualization tools (Grad-CAM) were developed early to ensure that model interpretability (Objective 2) could be validated in parallel with model accuracy.
+\end{enumerate}
+
+This prioritization ensures that the foundational system works end-to-end, allowing later additions (e.g., pretrained models, dashboard UI) to be integrated without reengineering the core pipeline.
 \subsection{Evaluation}
 Preliminary evaluation of the trained CNN model yielded the following results:
 
