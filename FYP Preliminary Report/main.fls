@@ -282,11 +282,6 @@ INPUT ./images/gradcam_sample.png
 INPUT ./images/gradcam_sample.png
 INPUT ./images/gradcam_sample.png
 INPUT ./images/gradcam_sample.png
-INPUT ./images/KimFig3.png
-INPUT ./images/KimFig3.png
-INPUT ./images/KimFig3.png
-INPUT ./images/KimFig3.png
-INPUT ./images/KimFig3.png
 INPUT ./images/PPR_GanttChart.png
 INPUT ./images/PPR_GanttChart.png
 INPUT ./images/PPR_GanttChart.png

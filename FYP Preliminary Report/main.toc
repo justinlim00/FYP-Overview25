@@ -2,60 +2,57 @@
 \contentsline {subsection}{\numberline {1.1}Project Template}{2}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Background}{2}{subsection.1.2}%
 \contentsline {subsection}{\numberline {1.3}Motivation}{2}{subsection.1.3}%
-\contentsline {subsection}{\numberline {1.4}Project Concept}{3}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.4}Project Concept}{2}{subsection.1.4}%
 \contentsline {subsection}{\numberline {1.5}Project Objectives}{3}{subsection.1.5}%
 \contentsline {subsection}{\numberline {1.6}Deliverables}{3}{subsection.1.6}%
 \contentsline {section}{\numberline {2}Literature Review}{4}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Analysis of Similar Projects and Tools}{4}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Role of Deep Learning in Breast Cancer Imaging}{5}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Explainability in Medical AI}{6}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}Dataset Diversity and Generalization}{7}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}Summary of Gaps and Relevance to This Project}{8}{subsection.2.5}%
-\contentsline {section}{\numberline {3}Project Design}{10}{section.3}%
-\contentsline {subsection}{\numberline {3.1}User and Domain Context}{10}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}System Architecture}{10}{subsection.3.2}%
-\contentsline {paragraph}{Input Preprocessing Layer.}{11}{paragraph*.1}%
-\contentsline {paragraph}{CNN Backbone.}{11}{paragraph*.2}%
-\contentsline {paragraph}{Prediction Head.}{12}{paragraph*.3}%
-\contentsline {paragraph}{Explainability Module.}{12}{paragraph*.4}%
-\contentsline {paragraph}{Design Considerations.}{12}{paragraph*.5}%
-\contentsline {subsection}{\numberline {3.3}Dataset Used}{12}{subsection.3.3}%
-\contentsline {paragraph}{Primary Dataset – DDSM.}{12}{paragraph*.6}%
-\contentsline {paragraph}{Auxiliary Dataset – BreaKHis.}{12}{paragraph*.7}%
-\contentsline {paragraph}{Singapore-Specific Contextualization.}{13}{paragraph*.8}%
-\contentsline {paragraph}{Ethical Considerations.}{13}{paragraph*.9}%
-\contentsline {subsection}{\numberline {3.4}Feature Engineering}{13}{subsection.3.4}%
-\contentsline {paragraph}{Preprocessing and Augmentation.}{14}{paragraph*.10}%
-\contentsline {paragraph}{Multi-View Spatial Context.}{15}{paragraph*.11}%
-\contentsline {paragraph}{Domain-Specific Feature Emphasis.}{16}{paragraph*.12}%
-\contentsline {subsection}{\numberline {3.5}Algorithm Selection}{17}{subsection.3.5}%
-\contentsline {paragraph}{Optimization and Regularization.}{17}{paragraph*.13}%
-\contentsline {subsection}{\numberline {3.6}Evaluation Metrics}{17}{subsection.3.6}%
-\contentsline {paragraph}{Quantitative Metrics.}{17}{paragraph*.14}%
-\contentsline {paragraph}{Explainability Evaluation.}{18}{paragraph*.15}%
-\contentsline {paragraph}{Qualitative Explainability Assessment.}{18}{paragraph*.16}%
-\contentsline {paragraph}{Risk Stratification.}{19}{paragraph*.17}%
-\contentsline {paragraph}{Cross-validation.}{19}{paragraph*.18}%
-\contentsline {paragraph}{Conclusion.}{19}{paragraph*.19}%
-\contentsline {subsection}{\numberline {3.7}Work Plan and Project Timeline}{19}{subsection.3.7}%
-\contentsline {section}{\numberline {4}Feature Prototype}{21}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Development Strategy}{21}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Implemented Modules}{21}{subsection.4.2}%
-\contentsline {paragraph}{\texttt {01\_preprocessing.ipynb}}{22}{paragraph*.20}%
-\contentsline {paragraph}{\texttt {02\_model\_training.ipynb}}{22}{paragraph*.21}%
-\contentsline {paragraph}{Handling Class Imbalance}{23}{paragraph*.22}%
-\contentsline {paragraph}{Prototype Justification}{23}{paragraph*.23}%
-\contentsline {paragraph}{Key innovation:}{23}{paragraph*.24}%
-\contentsline {paragraph}{Threshold Selection Justification}{23}{paragraph*.25}%
-\contentsline {paragraph}{Performance Implications}{24}{paragraph*.26}%
-\contentsline {paragraph}{\texttt {03\_gradcam\_visualization.ipynb}}{24}{paragraph*.27}%
-\contentsline {paragraph}{Interpretation:}{24}{paragraph*.28}%
-\contentsline {paragraph}{\texttt {04\_Evaluation.ipynb}}{24}{paragraph*.29}%
-\contentsline {paragraph}{Summary}{26}{paragraph*.30}%
-\contentsline {subsection}{\numberline {4.3}Improvements and Next Steps}{26}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Appendices}{27}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Figures Referenced in Section 2.1: Limitations of Traditional Risk Models}{27}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Figures Referenced in Section 2.2: Role of Deep Learning in Breast Cancer Imaging}{27}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Figure Referenced in Section 2.3: Explainability in Medical AI}{29}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}Figures Referenced in Section 2.4: Dataset Diversity and Generalization}{30}{subsection.5.4}%
-\contentsline {section}{\numberline {6}References}{31}{section.6}%
+\contentsline {subsection}{\numberline {2.3}Role of Deep Learning in Breast Cancer Imaging}{5}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Explainability in Medical AI}{6}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Summary of Gaps and Relevance}{7}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Project Design}{9}{section.3}%
+\contentsline {subsection}{\numberline {3.1}User and Domain Context}{9}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}System Architecture}{9}{subsection.3.2}%
+\contentsline {paragraph}{Input Preprocessing Layer.}{10}{paragraph*.1}%
+\contentsline {paragraph}{CNN Backbone.}{10}{paragraph*.2}%
+\contentsline {paragraph}{Prediction Head.}{10}{paragraph*.3}%
+\contentsline {paragraph}{Explainability Module.}{10}{paragraph*.4}%
+\contentsline {paragraph}{Design Considerations.}{10}{paragraph*.5}%
+\contentsline {subsection}{\numberline {3.3}Dataset Used}{10}{subsection.3.3}%
+\contentsline {paragraph}{Primary Dataset – DDSM.}{10}{paragraph*.6}%
+\contentsline {paragraph}{Auxiliary Dataset – BreaKHis.}{10}{paragraph*.7}%
+\contentsline {paragraph}{Singapore-Specific Contextualization.}{11}{paragraph*.8}%
+\contentsline {subsection}{\numberline {3.4}Feature Engineering}{11}{subsection.3.4}%
+\contentsline {paragraph}{Preprocessing and Augmentation.}{12}{paragraph*.9}%
+\contentsline {paragraph}{Multi-View Spatial Context.}{12}{paragraph*.10}%
+\contentsline {paragraph}{Domain-Specific Feature Emphasis.}{13}{paragraph*.11}%
+\contentsline {subsection}{\numberline {3.5}Algorithm Selection}{14}{subsection.3.5}%
+\contentsline {paragraph}{Optimization and Regularization.}{14}{paragraph*.12}%
+\contentsline {subsection}{\numberline {3.6}Evaluation Metrics}{14}{subsection.3.6}%
+\contentsline {paragraph}{Quantitative Metrics.}{14}{paragraph*.13}%
+\contentsline {paragraph}{Explainability Evaluation.}{15}{paragraph*.14}%
+\contentsline {paragraph}{Risk Stratification.}{15}{paragraph*.15}%
+\contentsline {paragraph}{Cross-validation.}{15}{paragraph*.16}%
+\contentsline {paragraph}{Conclusion.}{15}{paragraph*.17}%
+\contentsline {subsection}{\numberline {3.7}Work Plan and Project Timeline}{15}{subsection.3.7}%
+\contentsline {section}{\numberline {4}Feature Prototype}{17}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Development Strategy}{17}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Implemented Modules}{17}{subsection.4.2}%
+\contentsline {paragraph}{\texttt {01\_preprocessing.ipynb}}{18}{paragraph*.18}%
+\contentsline {paragraph}{\texttt {02\_model\_training.ipynb}}{18}{paragraph*.19}%
+\contentsline {paragraph}{Handling Class Imbalance}{18}{paragraph*.20}%
+\contentsline {paragraph}{Prototype Justification}{19}{paragraph*.21}%
+\contentsline {paragraph}{Key innovation:}{19}{paragraph*.22}%
+\contentsline {paragraph}{Threshold Selection Justification}{19}{paragraph*.23}%
+\contentsline {paragraph}{Performance Implications}{19}{paragraph*.24}%
+\contentsline {paragraph}{\texttt {03\_gradcam\_visualization.ipynb}}{19}{paragraph*.25}%
+\contentsline {paragraph}{Interpretation:}{20}{paragraph*.26}%
+\contentsline {paragraph}{\texttt {04\_Evaluation.ipynb}}{20}{paragraph*.27}%
+\contentsline {subsection}{\numberline {4.3}Improvements and Next Steps}{21}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Appendices}{23}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Figures Referenced in Section 2.1: Limitations of Traditional Risk Models}{23}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Figures Referenced in Section 2.2: Role of Deep Learning in Breast Cancer Imaging}{23}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Figure Referenced in Section 2.3: Explainability in Medical AI}{25}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Figures Referenced in Section 2.4: Dataset Diversity and Generalization}{26}{subsection.5.4}%
+\contentsline {section}{\numberline {6}References}{27}{section.6}%
