@@ -136,7 +136,7 @@ Taken together, these works justify the technical foundations of this project: s
 
 \subsubsection{Importance of Interpretability in Clinical Settings}
 
-While deep learning (DL) models have achieved strong performance in medical imaging, their “black box” nature remains a barrier to clinical adoption. Unlike traditional models with defined features, CNNs often produce predictions without transparent reasoning. In high-stakes domains like cancer diagnosis, this lack of interpretability raises ethical and practical concerns—especially when errors could cause misdiagnosis or delayed treatment~\cite{3}.
+While deep learning (DL) models have achieved strong performance in medical imaging, their “black box” nature remains a barrier to clinical adoption. Unlike traditional models with defined features, CNNs often produce predictions without transparent reasoning. In high-stakes domains like cancer diagnosis, this lack of interpretability raises ethical and practical concerns especially when errors could cause misdiagnosis or delayed treatment~\cite{3}.
 
 This issue is especially relevant to this project, which targets breast cancer screening in Singapore. Clinicians need to understand how and why a model makes a prediction to trust and act on it. As Ching et al.~\cite{3} emphasize, explainability is not just a technical add-on but a prerequisite for responsible AI use in healthcare and an essential condition for ethical deployment of ML tools in clinical settings.
 
@@ -201,11 +201,15 @@ Most AI models are developed using Western cohorts, which differ in breast densi
 \vspace{0.5em}
 Collectively, these gaps justify the core architecture of this project:
 \begin{itemize}
-    \item CNN-based image models are prioritized over questionnaire-based tools for precision screening;
-    \item Grad-CAM explainability ensures clinical interpretability and user trust;
-    \item Training pipelines are adapted to local demographic factors;
-    \item Lightweight architectures and weak supervision accommodate Singapore's data limitations;
-    \item Transfer learning is validated critically rather than assumed.
+    \item CNN-based image models are prioritized over questionnaire-based tools for precision screening, as they better capture visual diagnostic features that traditional methods may miss;
+    
+    \item Grad-CAM explainability ensures clinical interpretability and user trust by providing transparent visual outputs;
+    
+    \item Training pipelines are adapted to local demographic factors, including high breast density and age-specific risks observed in Singaporean cohorts;
+    
+    \item Lightweight architectures and weak supervision accommodate Singapore’s data limitations, enabling deployment in low-resource healthcare settings;
+    
+    \item Transfer learning is validated critically rather than assumed, ensuring that pretrained models offer genuine benefit in this medical imaging context.
 \end{itemize}
 
 These strategies form the foundation of a culturally responsive, explainable AI pipeline optimized for breast cancer screening in Singapore.
@@ -230,7 +234,7 @@ To ensure the proposed system is both technically sound and contextually relevan
 From these projects, several key insights emerge: the importance of robust validation across diverse populations, the need for transparent model outputs, and the value of seamless integration into clinical workflows. These findings shape this project’s approach by ensuring the model is both interpretable (via Grad-CAM) and tuned to local breast density distributions. Furthermore, clinician-in-the-loop design is adopted to foster trust, prevent overreliance on automation, and ensure that AI predictions enhance rather than override expert judgment. By incorporating these lessons, the proposed prototype aims to strike a balance between technical performance, clinical usability, and ethical responsibility.
 
 \vspace{2em}
-\noindent\textbf{Word count:} 1984
+\noindent\textbf{Word count:} 2027
 
 %-------------Project Design Page-------------
 \newpage
@@ -354,7 +358,7 @@ This phase aims to improve generalization and sensitivity, especially for dense 
 
 The first step involves enhancing the diagnostic quality of mammograms. Median filtering removes impulse noise while preserving subtle features like microcalcifications. CLAHE (Contrast-Limited Adaptive Histogram Equalization)~\cite{14} improves local contrast, especially in dense tissue. Pixel intensities are then normalized either to $[0,1]$ or z-normalized to support stable training convergence.
 
-Next, augmentation techniques are applied to increase data diversity and reduce overfitting. Geometric transformations such as flipping, cropping, and small-angle rotations (±15°) simulate patient positioning differences. Photometric augmentations (e.g., Gaussian blur and contrast jitter) address scanner inconsistencies. Semantic augmentation via intensity inversion introduces exposure variation and histogram shifts, improving generalizability across imaging devices.
+Next, augmentation techniques are applied to increase data diversity and reduce overfitting. Geometric transformations such as flipping, cropping, and small-angle rotations (±15°) simulate patient positioning differences. Photometric augmentations (e.g., Gaussian blur and contrast jitter) address scanner inconsistencies. Semantic augmentation via intensity inversion introduces exposure variation and histogram shifts, improving generalizability across cimaging devices.
 
 Together, these techniques expand the training distribution and enhance robustness for deployment in diverse clinical environments.
 
@@ -385,7 +389,7 @@ Model training is optimized using the Adam optimizer with a cyclical learning ra
 Model performance is assessed using metrics aligned with clinical relevance, screening effectiveness, and robustness to class imbalance. These reflect the needs of early breast cancer detection, particularly in dense tissue and low-resource settings.
 
 \subsubsection{Primary Performance Metrics}
-AUC (Area Under the ROC Curve) is the primary metric, as it captures the model’s ability to distinguish benign from malignant cases across thresholds~\cite{1}. Sensitivity and specificity are reported to assess detection and false positive rates. Sensitivity is prioritized to avoid missed malignancies, especially common in dense tissue~\cite{6}. The F1-score balances precision and recall—especially relevant in imbalanced datasets where accuracy can mislead.
+AUC (Area Under the ROC Curve) is the primary metric, as it captures the model’s ability to distinguish benign from malignant cases across thresholds~\cite{1}. Sensitivity and specificity are reported to assess detection and false positive rates. Sensitivity is prioritized to avoid missed malignancies, especially common in dense tissue~\cite{6}. The F1-score balances precision and recall especially relevant in imbalanced datasets where accuracy can mislead.
 
 \subsubsection{Explainability Assessment}
 Explainability is assessed using Grad-CAM, which produces heatmaps showing the image regions most influential to predictions. These are overlaid on mammograms and—where feasible—reviewed by domain experts to assess alignment with expected tumor locations. This supports clinical trust, regulatory compliance, and interpretability.
@@ -405,7 +409,7 @@ In conclusion, the evaluation strategy for this project combines both standard a
 
 \subsection{Work Plan and Project Timeline}
 
-This project follows a structured timeline spanning from July to early September 2024, divided into four main phases to manage complexity, reduce risk, and ensure timely delivery. The planning was informed by a top-down decomposition of tasks based on project requirements, module interdependencies, and key submission milestone. Each phase was allocated based on task duration, estimated workload.
+This project follows a structured timeline spanning from July to early September 2025, divided into four main phases to manage complexity, reduce risk, and ensure timely delivery. The planning was informed by a top-down decomposition of tasks based on project requirements, module interdependencies, and key submission milestone. Each phase was allocated based on task duration, estimated workload.
 
 \begin{enumerate}
     \item \textbf{Project Conceptualising:} This phase focuses on understanding the problem domain, reviewing prior work, and preparing early deliverables (e.g., proposal video, literature review). Front-loading research activities ensures a strong theoretical foundation for later implementation.
@@ -422,7 +426,7 @@ Figure~\ref{fig:gantt} presents the Gantt chart
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{images/PPR_GanttChart.png}
-    \caption{Project Gantt chart showing planned activities from July to September 2024, divided into phases of research, design, development, and reporting.}
+    \caption{Project Gantt chart showing planned activities from July to September 2025, divided into phases of research, design, development, and reporting.}
     \label{fig:gantt}
 \end{figure}
 
