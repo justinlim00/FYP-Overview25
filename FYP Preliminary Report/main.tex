@@ -23,20 +23,30 @@
 
 \begin{titlepage}
     \centering
-    \vspace*{\fill}
+    \vspace*{2cm}
 
-    {\LARGE \textbf{Final Year Project: Preliminary Report}}\\[2em]
-    {\large Development of an Explainable Deep Learning Model for}\\[0.5em]
-    {\large Early Breast Cancer Detection in Singaporean Women with Dense Tissue}\\[4em]
+    {\LARGE\bfseries UNIVERSITY OF LONDON \\[0.5em]
+    \large INTERNATIONAL PROGRAMMES}\\[2em]
 
-    {\large \textbf{Justin Lim}}\\[1em]
-    {\large \today}
+    {\Large\bfseries BSc Computer Science and Related Subjects}\\[3em]
 
-    \vspace*{\fill}
+    \includegraphics[width=0.35\textwidth]{images/uol.png}\\[3em]
+
+    {\Large\bfseries \underline{CM3070 PROJECT}\\
+    \underline{PRELIMINARY PROJECT REPORT}}\\[3em]
+
+    {\Large Development of an Explainable Deep Learning Model for}\\[0.5em]
+    {\Large Early Breast Cancer Detection in Singaporean Women with Dense Tissue}\\[5em]
+
+    \begin{flushleft}
+        \textbf{Author:} Justin Lim\\
+        \textbf{Student Number:} 220516329\\
+        \textbf{Date of Submission:} \today\\
+        \textbf{Supervisor:} Yip See Wai
+    \end{flushleft}
+
+    \vfill
 \end{titlepage}
-\newpage
-\tableofcontents
-\newpage
 
 %-------------Introduction Page-------------
 \newpage
@@ -215,7 +225,7 @@ These users are directly involved in interpreting screening results and making e
 
 Figure~\ref{fig:system_architecture} shows the architecture of the proposed breast cancer risk prediction system, covering image preprocessing, CNN-based classification, and explainability via Grad-CAM~\cite{1,5}. Presenting the architecture upfront anchors the subsequent module descriptions.
 
-The pipeline starts with mammographic images, which go through preprocessing (see Section~3.4) involving grayscale conversion, normalization, and augmentation. These standardized images are then fed into a CNN backbone (e.g., ResNet-50 or EfficientNet-B0) for feature extraction.
+The pipeline starts with mammographic images, which go through preprocessing (see Section~3.4) involving grayscale conversion, normalization, and augmentation. These standardized images are then fed into a CNN backbone for feature extraction.
 
 
 From here, the architecture diverges into two parallel outputs:
@@ -267,11 +277,10 @@ Extracted features are passed through fully connected layers, ending in a sigmoi
 To enhance transparency, Grad-CAM~\cite{5} highlights input regions that influenced predictions. This supports clinical trust, especially in dense or ambiguous cases. Figure~\ref{fig:system_architecture} shows how the CNN output feeds both the risk score and the Grad-CAM branch.
 
 \paragraph{Design Considerations.}
-Modules are kept modular for future upgrades—such as fine-tuning on Singapore-specific data, adding metadata, or supporting multi-view inputs~\cite{8}. This ensures adaptability to evolving datasets and deployment needs, balancing predictive performance with clinical usability.
+Modules are kept modular for future upgrades such as fine-tuning on Singapore-specific data, adding metadata, or supporting multi-view inputs~\cite{8}. This ensures adaptability to evolving datasets and deployment needs, balancing predictive performance with clinical usability.
 
 \subsection{Dataset Used}
-
-The model is trained and evaluated using the CBIS-DDSM dataset from Kaggle~\cite{cbis_ddsm_kaggle}, selected for its accessibility and preprocessing.
+This project requires high-quality annotated medical images to train and evaluate deep learning models for breast cancer detection. The datasets ~\cite{cbis_ddsm_kaggle} selected provide diverse mammographic views essential for building and validating the system’s predictive pipeline.
 
 \paragraph{Primary Dataset – DDSM.}
 The DDSM~\cite{17} contains over 2,600 cases, each with four standard views and pathology-verified annotations. Its volume and case diversity support robust CNN training and classification of both benign and malignant samples.
@@ -324,7 +333,7 @@ The purpose of this step is to enhance generalization and sensitivity, particula
 The initial phase of feature engineering focuses on cleaning and enhancing the diagnostic quality of raw mammograms. This step is essential to ensure consistent model input and eliminate irrelevant imaging artifacts.
 
 \begin{itemize}
-    \item \textbf{Denoising:} Median filtering removes impulse noise (e.g., salt-and-pepper artifacts) while preserving fine structural detail important for detecting subtle anomalies like microcalcifications.
+    \item \textbf{Denoising:} Median filtering removes impulse noise while preserving fine structural detail important for detecting subtle anomalies like microcalcifications.
     \item \textbf{Contrast enhancement:} CLAHE (contrast-limited adaptive histogram equalization)~\cite{14} enhances local contrast, improving visibility of faint lesions, especially in dense tissue environments.
     \item \textbf{Normalization:} Pixel values are rescaled to $[0,1]$ or z-normalized to ensure uniform dynamic range, enabling more stable model convergence.
 \end{itemize}
@@ -384,7 +393,7 @@ Models are optimized using Adam with a cyclical learning rate. Dropout is applie
 \subsection{Evaluation Metrics}
 
 \paragraph{Quantitative Metrics.}
-Performance is evaluated using metrics aligned with clinical relevance, risk stratification, and imbalanced data challenges:
+Performance is evaluated using metrics selected for their alignment with clinical relevance, risk stratification, and imbalanced data challenges. These choices reflect the needs of early cancer detection in dense tissue and low-resource screening settings:
 
 \begin{itemize}
     \item \textbf{AUC (Area Under the ROC Curve):} Measures the model’s ability to distinguish between malignant and benign cases across thresholds. It is the primary metric due to its value in screening workflows~\cite{1}.
@@ -395,23 +404,13 @@ Performance is evaluated using metrics aligned with clinical relevance, risk str
 \end{itemize}
 
 \paragraph{Explainability Evaluation.}
-Grad-CAM heatmaps are overlaid on mammograms and visually inspected where possible—by domain experts to assess alignment with diagnostic features.
+Explainability is central to clinical trust. Grad-CAM heatmaps are used to visualize which image regions influenced the model’s prediction. These are overlaid on mammograms and—where possible visually inspected by domain experts to confirm alignment with tumor areas. This supports both model auditing and radiologist trust.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/gradcam_sample.png}
     \caption{Grad-CAM visualizations showing model attention over mammograms. Red indicates regions of high diagnostic interest.}
 \end{figure}
-
-% \paragraph{Qualitative Explainability Assessment.}
-% Beyond standard performance metrics, interpretability is essential in medical imaging. Kim et al.\ (2018) proposed the Data-driven Imaging Biomarker model (DIB-MG), which generates attention maps that highlight risk-relevant regions in mammograms. Their work supports the use of Grad-CAM as a means to validate model behavior against radiological intuition. As shown in Figure~\ref{fig:kim2018}, attention maps provide visual grounding for predictions, which is key to clinical trust and regulatory validation.
-
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.85\textwidth]{images/KimFig3.png}
-%     \caption{DIB-MG: Attention-based imaging biomarker model localizing high-risk regions. Adapted from Kim et al.\ (2018).}
-%     \label{fig:kim2018}
-% \end{figure}
 
 \paragraph{Risk Stratification.}
 Patients are ranked by predicted risk scores and divided into deciles. Metrics like:
@@ -432,7 +431,7 @@ This project adopts a structured, explainable deep learning architecture validat
 
 \subsection{Work Plan and Project Timeline}
 
-This project follows a structured timeline spanning from July to early September 2024, divided into four main phases to manage complexity, reduce risk, and ensure timely delivery. The planning was informed by a top-down decomposition of tasks based on project requirements, module interdependencies, and key submission milestones (e.g., briefing, prototype, final report). Each phase was allocated based on task duration, estimated workload.
+This project follows a structured timeline spanning from July to early September 2024, divided into four main phases to manage complexity, reduce risk, and ensure timely delivery. The planning was informed by a top-down decomposition of tasks based on project requirements, module interdependencies, and key submission milestone. Each phase was allocated based on task duration, estimated workload.
 
 \begin{enumerate}
     \item \textbf{Project Conceptualising (Weeks 1–5):} This phase focuses on understanding the problem domain, reviewing prior work, and preparing early deliverables (e.g., proposal video, literature review). Front-loading research activities ensures a strong theoretical foundation for later implementation.
@@ -444,7 +443,7 @@ This project follows a structured timeline spanning from July to early September
     \item \textbf{Final Sprint (Weeks 18–25):} Reserved for final evaluation, report writing, and video presentation. A buffer period is also included (Week 25) to manage unexpected delays, ensuring submission readiness without compromising quality.
 \end{enumerate}
 
-Figure~\ref{fig:gantt} presents the Gantt chart visualizing these stages. 
+Figure~\ref{fig:gantt} presents the Gantt chart
 
 \begin{figure}[H]
     \centering
